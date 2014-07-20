@@ -1,7 +1,3 @@
 # 使用情境
 
-工具只是工具，重要的是如何使用、如何設計出彈性、和容易維護，除了拿   concerns 來寫一些 virtual attributes 外，還有一些其他的技巧：
-
-1. concerns 實作 class 決定行為 (TODO: 未完成)
-2. 搭配 meta-programming (TODO: 未完成)
-3. 擴充已存在的物件 (TODO: 未完成)
+Concerns 除了 DRY 你的程式碼外，更多時候是幫你的 model 或 class `設計擴充功能`，所以除了寫一些 model 的 `virtual attributes` 外，你還必須去思考這些需求的抽象層次。

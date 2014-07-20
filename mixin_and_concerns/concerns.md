@@ -1,5 +1,7 @@
 # Concerns
 
+concerns 是 rails `ActiveSupport` 為了解決相依問題實作的功能。
+
 剛剛 mixin 的語法感覺不是那麼簡潔，如果用 concerns 需額外在 module 內 extend `ActiveSupport::Concern` 才能使用，完整範例：
 
 ```ruby
@@ -36,7 +38,7 @@ end
 
 # 相依性
 
-如果你的 concerns 跟 concerns 間有相依關係，例如有一個 concerns 叫做 `HightSpeedRail` 相依 `Departs` 和付款 `Payable`、訂位 `Reservable`，並組合出一個新功能，則可以這樣使用：
+如果你的 concerns 間有相依關係，例如有一個 concerns 叫做 `HightSpeedRail` 相依 `Departs` 和付款 `Payable`、訂位 `Reservable`，並組合出一個新功能，則可以這樣使用：
 
 ```ruby
 # app/models/concerns/high_speed_rail.rb

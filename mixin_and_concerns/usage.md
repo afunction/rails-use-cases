@@ -63,7 +63,7 @@ end
 ThsrGroupbuy.model_name
 ```
 
-(以上這個例子不是真實情況，ActiveRecord 已經有類似的 method)
+(以上這個例子 ActiveRecord 已經有類似的 method)
 
 ### [範例] 同時需要 mix class & instance methods
 
