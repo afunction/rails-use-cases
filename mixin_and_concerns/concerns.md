@@ -18,7 +18,7 @@ module Departs
 
   module ClassMethods
     def sites_list
-      %w(左營 南台 嘉義 台中 桃園 新竹 板橋 台北)
+      I18n.t('depsrts')
     end
   end
 
