@@ -3,7 +3,7 @@
 ### 不一定需要在 class 內做 mixin 動作
 
 
-記得剛接觸 rails gem [devise](https://github.com/plataformatec/devise) 的時候，一直很困惑為什麼只是再 Gemfile 加入一個 gem，在完全沒動到 model 繼承關係的情況下，
+記得剛接觸 rails [[Gem] devise](https://github.com/plataformatec/devise) 的時候，一直很困惑為什麼只是再 Gemfile 加入一個 gem，在完全沒動到 model 繼承關係的情況下，
 就冒出來一個 `devise` method，如下：
 
 
@@ -28,16 +28,15 @@ String.send(:include, TestModule)
 ```
 
 
-`send` 是 ruby object 的 class method：
+> `send` 是 ruby 所有 object 都有，用來執行 method 的 method，其特性可以跳過 `private` 和 `protected` 保護進而執行 method。
+>
+> http://ruby-doc.org/core-2.1.2/Object.html#method-i-send
 
-http://ruby-doc.org/core-2.1.2/Object.html#method-i-send
-
-意思等於 `String.include(TestModule)` 不過使用 `send` 可以跳過 `private` 和 `protected` 保護進而執行 method。
 
 ### 例子
 
 1. [[Gem] stamp](https://github.com/jeremyw/stamp) 擴充了 `Date` 和 `Datetime` 物件、方便設定時間轉字串的 format。
-2. [[Gem] super_accessors](https://github.com/afunction/super_accessors) 將 ActiveRecord [store](http://api.rubyonrails.org/classes/ActiveRecord/Store.html) 擴充成支援 `integer` `boolean` .. etc (原本全部都是 string)
+2. [[Gem] super_accessors](https://github.com/afunction/super_accessors) 將 ActiveRecord 的 [store](http://api.rubyonrails.org/classes/ActiveRecord/Store.html) 擴充成支援 `integer` `boolean` .. etc (原本全部都是 string)
 
 
 ### 在專案內擴充原有物件

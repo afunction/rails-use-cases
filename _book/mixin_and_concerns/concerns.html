@@ -34,7 +34,7 @@
 
 
         
-    <div class="book" data-github="eddie/rails-use-cases" data-level="1.2" data-basepath=".." data-revision="1405881140582">
+    <div class="book" data-github="eddie/rails-use-cases" data-level="1.2" data-basepath=".." data-revision="1405882373435">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -269,11 +269,11 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_7201">
+                    <section class="normal" id="section-gitbook_7621">
                     
                         <h1 id="concerns">Concerns</h1>
-<p>concerns 是 rails <code>ActiveSupport</code> 為了解決相依問題實作的功能。</p>
-<p>剛剛 mixin 的語法感覺不是那麼簡潔，如果用 concerns 需額外在 module 內 extend <code>ActiveSupport::Concern</code> 才能使用，完整範例：</p>
+<p>concerns 主要是 rails <code>ActiveSupport</code> 為了解決相依問題實作的功能，另外使用 concerns 實作 mixin 也會讓 code 變得比較簡潔。</p>
+<p>如果剛剛的 case 改用 concerns 實作，必須需額外在 module 內 extend <code>ActiveSupport::Concern</code> 才能使用，完整範例：</p>
 <pre><code class="lang-ruby"><span class="hljs-comment"># app/models/concerns/departs.rb</span>
 <span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">Departs</span></span>
   extend <span class="hljs-constant">ActiveSupport::Concern</span>

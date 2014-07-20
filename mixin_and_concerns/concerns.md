@@ -1,8 +1,8 @@
 # Concerns
 
-concerns 是 rails `ActiveSupport` 為了解決相依問題實作的功能。
+concerns 主要是 rails `ActiveSupport` 為了解決相依問題實作的功能，另外使用 concerns 實作 mixin 也會讓 code 變得比較簡潔。
 
-剛剛 mixin 的語法感覺不是那麼簡潔，如果用 concerns 需額外在 module 內 extend `ActiveSupport::Concern` 才能使用，完整範例：
+如果剛剛的 case 改用 concerns 實作，必須需額外在 module 內 extend `ActiveSupport::Concern` 才能使用，完整範例：
 
 ```ruby
 # app/models/concerns/departs.rb
