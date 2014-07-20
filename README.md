@@ -1,3 +1,5 @@
+[![Build Status](https://www.gitbook.io/button/status/book/afunction/rails-use-cases)](https://www.gitbook.io/book/afunction/rails-use-cases/activity)
+
 ## 為什麼要寫這本書
 
 記得在開發第一個 rails 專案時，我並不覺得 rails 真的有多快速開發，不過隨著第二、第三的專案後，漸漸開始了解產能是建立在：

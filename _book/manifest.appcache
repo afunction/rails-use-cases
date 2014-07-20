@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Revision 1405880550125
+# Revision 1405881140582
 
 CACHE:
 index.html
@@ -10,8 +10,8 @@ mixin_and_concerns/extend-exists-classes.html
 mixin_and_concerns/meta-programming.html
 mixin_and_concerns/setup-options-in-class.html
 mixin_and_concerns/tips.html
-mixin_and_concerns/usage.html
 mixin_and_concerns/use_cases.html
+mixin_and_concerns/usage.html
 gitbook/app.js
 gitbook/fonts/fontawesome/FontAwesome.otf
 gitbook/fonts/fontawesome/fontawesome-webfont.eot
