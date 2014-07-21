@@ -24,7 +24,7 @@
     @group.from_site # 左營
     @group.to_site # 左營
     ```
-2. 並且都會檢驗 `to_id` `from_id` 是否等於數字 1 - 8，並且起訖站不能一樣
+2. 檢驗 `to_id` `from_id` 是否等於數字 1 - 8，並且起訖站不能一樣
 3. 定義好一樣的 `scope`，如：
     ```ruby
     ThsrTicket.from_to_list(1, 8) # 回傳左營 => 臺北的轉讓票
