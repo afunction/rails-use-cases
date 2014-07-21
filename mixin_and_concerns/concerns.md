@@ -43,9 +43,12 @@ end
 # app/models/concerns/documentation.rb
 module Documentation
   extend ActiveSupport::Concern
-  include Departs
-  include Payable
-  include Reservable
+
+  included do
+    include Uploadable
+    include Editable
+    include SoftDeletable
+  end
 
   # ... (略)
 end
