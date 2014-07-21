@@ -76,7 +76,7 @@ end
 
 # Tips
 
-以上案例為了方便說明而簡化過，實作起訖站欄位 `from_id` 和 `to_id` 更好的方法是使用 [[Gem] simple_enum](https://github.com/lwe/simple_enum) 有 `i18n`、`validate` 支援，也考慮到使用 `form select` 會用到的 `collection`，例如：
+以上案例為了方便說明而簡化過，實作起訖站欄位 `from_id` 和 `to_id` 更好的方法是使用 [[Gem] simple_enum](https://github.com/lwe/simple_enum) 預設就支援 `i18n`、`validate`，也考慮到使用 `form select` 會用到的 `collection`，例如：
 
 ```erb
 <% simple_form_for(@subscribe) do |f| %>
