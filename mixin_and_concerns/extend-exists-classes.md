@@ -28,7 +28,7 @@ String.send(:include, TestModule)
 ```
 
 
-> `send` 是 ruby 所有 object 都有，用來執行 method 的 method，其特性可以跳過 `private` 和 `protected` 保護進而執行 method。
+> `send` 是 ruby 所有 object (class, instance) 都有，用來執行 method 的 method，其特性可以繞過 `private` 和 `protected` 保護進而執行 method。
 >
 > http://ruby-doc.org/core-2.1.2/Object.html#method-i-send
 
@@ -43,4 +43,4 @@ String.send(:include, TestModule)
 
 如果你有類似需求，又不打算把你寫的 code 就打包成 gem，你可以把你寫的 `module` 放在 lib 裡面，並在 `initializer/` 裡面去做 mixin 的動作。
 
-> 即使在開發環境中 `initializer/*` 裡的資料要是有變動，則需要重新啟動 web server 才會生效。
+> P.S 即使在開發環境中 `initializer/*` 裡的資料要是有變動，則需要重新啟動 web server 才會生效。

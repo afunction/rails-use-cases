@@ -34,7 +34,7 @@
 
 
         
-    <div class="book" data-github="eddie/rails-use-cases" data-level="1.3.1" data-basepath=".." data-revision="1405882373435">
+    <div class="book" data-github="eddie/rails-use-cases" data-level="1.3.1" data-basepath=".." data-revision="1405959144409">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -190,7 +190,7 @@
         <li class="chapter " data-level="1.3.3" data-path="mixin_and_concerns/setup-options-in-class.html">
             
             <a href="../mixin_and_concerns/setup-options-in-class.html">
-                <i class="fa fa-check"></i> <b>1.3.3.</b> Class 決定細節
+                <i class="fa fa-check"></i> <b>1.3.3.</b> 留 options 給使用的 Class 
             </a>
             
             
@@ -258,7 +258,7 @@
     
         <a href="../mixin_and_concerns/extend-exists-classes.html" title="擴充已存在物件" class="chapter  " data-progress="1.3.2" style="left: 66.66666666666667%;"></a>
     
-        <a href="../mixin_and_concerns/setup-options-in-class.html" title="Class 決定細節" class="chapter  " data-progress="1.3.3" style="left: 77.77777777777777%;"></a>
+        <a href="../mixin_and_concerns/setup-options-in-class.html" title="留 options 給使用的 Class " class="chapter  " data-progress="1.3.3" style="left: 77.77777777777777%;"></a>
     
         <a href="../mixin_and_concerns/meta-programming.html" title="搭配 meta-programming" class="chapter  " data-progress="1.3.4" style="left: 88.88888888888889%;"></a>
     
@@ -269,7 +269,7 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_7622">
+                    <section class="normal" id="section-gitbook_637">
                     
                         <h1 id="dry-model">DRY 你的 model</h1>
 <p>以 <a href="https://www.latebird.co" target="_blank">晚鳥票</a> 的例子，這個 case 讓我省了非常多時間刻同樣的程式碼。</p>
@@ -341,7 +341,7 @@
 <p>寫在 <code>included</code> blcok 內的程式碼，必須等 module <code>被 include</code> 了以後才執行，才不會找不到 <code>validate</code> <code>validates_inclusion_of</code> <code>scope</code> 這些屬於 <code>ActiveRecord::Base</code> 的 class methods</p>
 </blockquote>
 <h1 id="tips">Tips</h1>
-<p>以上案例為了方便說明而簡化過，實作起訖站欄位 <code>from_id</code> 和 <code>to_id</code> 更好的方法是使用 <a href="https://github.com/lwe/simple_enum" target="_blank">[Gem] simple_enum</a> 有 <code>i18n</code>、<code>validate</code> 支援，也考慮到使用 <code>form select</code> 會用到的 <code>collection</code>，例如：</p>
+<p>以上案例為了方便說明而簡化過，實作起訖站欄位 <code>from_id</code> 和 <code>to_id</code> 更好的方法是使用 <a href="https://github.com/lwe/simple_enum" target="_blank">[Gem] simple_enum</a> 預設就支援 <code>i18n</code>、<code>validate</code>，也考慮到使用 <code>form select</code> 會用到的 <code>collection</code>，例如：</p>
 <pre><code class="lang-erb">&lt;% simple_form_for(@subscribe) do |f| %&gt;
   &lt;%= f.from_id, collection: Subscribe.sites_collections %&gt;
   &lt;%= f.to_id, collection: Subscribe.sites_collections %&gt;

@@ -6,87 +6,115 @@
 
 ### [範例] include
 
+需求：
+
+我有兩個 class 叫做 `Airplane` 和 `Bus`
+
 ```ruby
-# app/models/concerns/departs.rb
-module Departs
-  def from_site
-    I18n.t("departs.#{from_id}")
-  end
-
-  def to_site
-    I18n.t("departs.#{to_id}")
-  end
+class Airplane < FlyMachine
 end
 
-# app/models/thsr_groupbuys.rb
-class ThsrGroupbuys < ActiveRecord::Base
-  # 假設這個 model 有 from_id & to_id column
-  include Depsrts
-end
-
-# app/models/thsr_groupbuys.rb
-class ThsrTickets < ActiveRecord::Base
-  # 假設這個 model 有 from_id & to_id column
-  include Depsrts
+class Bus < Car
 end
 ```
 
-這樣一來把 `ThsrTickets` 和 `ThsrGroupbuys` 都擁有了 `from_site` `to_site` 的 instance method，而不用分別重寫在兩個 model 裡，所以你可以這樣操作。
+假設他們的加油方式都一樣，我希望為這兩個 class 的 `instance` 擴充同一種加油方法 `fill_gas!`。
+
+例如:
 
 ```ruby
-@group = ThsrGroupbuys.find(1)
-@group.from_site # 左營
-@group.to_site # 台北
+@my_airplane = Airplane.new
+@my_airplane.fill_gas!
 
-@ticket = ThsrTicket.find(1)
-@ticket.from_site # 左營
-@ticket.to_site # 台北
+@my_car = Car.new
+@my_car.fill_gas!
 ```
+
+問題是他們分別繼承了不同的 `superclass`，而且不一定所有繼承 `FlyMachine` 或 `Car` 的其他 class 都需要或適用 `fill_gas!` 這個方法。即使我實作了，變成要貼兩次一樣的程式碼在不同的 class 裡。
+
+所以這時候我們可以建立一個 `module` 叫做 `GasHandle`
+
+```ruby
+module GasHandler
+  def fill_gas!
+    puts "gas filled ..."
+  end
+end
+```
+
+> module 可以是 class / methods / modules 的集合，用來組織程式架構、或是當 package namespace 的用途。
+
+然後我只需要在 `Airplane` 和 `Car` 裡面 include `GasHandler` 就可以了：
+
+```ruby
+class Airplane < FlyMachine
+  include GasHandler
+end
+
+class Bus < Car
+  include GasHandler
+end
+
+@my_airplane = Airplane.new
+@my_airplane.fill_gas! # "gas filled ..."
+
+@my_car = Car.new
+@my_car.fill_gas! # "gas filled ..."
+
+```
+
 
 ### [範例] extend
 
+以剛剛的例子，我想為 `Airplane` 和 `Car` 擴充一樣的搜尋功能，並放在 `class level method` 裡，像是。
+
 ```ruby
-module TranslateModelName
-  def model_name
-    I18n.t("models_name.#{self.to_s.downcase}")
+my_airplane = Airplane.search_by_name('my_airplane')
+my_car = Car.search_by_name("eddie's car")
+```
+
+和剛剛的做法一樣，但這次我要使用 `extend` 來讓 module 裡的 method 變成 `class level method`，範例：
+
+```ruby
+module Searchable
+  def search_by_name(name)
+    # your search logic
   end
 end
+```
 
-class ThsrGroupbuy < ActiveRecord::Base
-  extend TranslateModelName
+再到 model 去 extend `Searchable`:
+
+```ruby
+class Airplane < FlyMachine
+  include GasHandler
+  extend Searchable
+end
+
+class Bus < Car
+  include GasHandler
+  extend Searchable
 end
 ```
 
-這樣一來 `model_name` 就會變成 `ThsrGroupbuy` 的 class level method，所以你就可以這樣用：
+使用 extend 混入後，就可以直接使用 `Airplane.search_by_name` 和 `Car.search_by_name` method 了。
+
+### [範例] 同時需要混入 class & instance methods
+
+拿 `GasHandler` module 的例子，如果我希望還可以加一個 class method `fill_all_gas!` 一次把所有 car 或 airplane 加滿油，也可以單獨為 instance 加油的情況，我的 module 必須修改如下：
 
 ```ruby
-ThsrGroupbuy.model_name
-```
-
-(以上這個例子 ActiveRecord 已經有類似的 method)
-
-### [範例] 同時需要 mix class & instance methods
-
-拿 departs module 的例子，如果我希望可以使用 `ThsrGroupbuy.sites_list` `ThsrTicket.sites_list` 可以得到車站的陣列，則必須修改成以下：
-
-```ruby
-# app/models/concerns/departs.rb
-module Departs
-
-  def self.included(base)
+module GasHandler
+ def self.included(base)
     base.class_eval do
-      def self.sites_list
-        %w(左營 南台 嘉義 台中 桃園 新竹 板橋 台北)
+      def self.fill_all_gas!
+        puts "gas filled all ..."
       end
     end
   end
 
-  def from_site
-    I18n.t("departs.#{from_id}")
-  end
-
-  def to_site
-    I18n.t("departs.#{to_id}")
+  def fill_gas!
+    puts "gas filled ..."
   end
 end
 ```

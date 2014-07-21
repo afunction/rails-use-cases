@@ -34,7 +34,7 @@
 
 
         
-    <div class="book" data-github="eddie/rails-use-cases" data-level="1.1" data-basepath=".." data-revision="1405882373435">
+    <div class="book" data-github="eddie/rails-use-cases" data-level="1.1" data-basepath=".." data-revision="1405959144409">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -190,7 +190,7 @@
         <li class="chapter " data-level="1.3.3" data-path="mixin_and_concerns/setup-options-in-class.html">
             
             <a href="../mixin_and_concerns/setup-options-in-class.html">
-                <i class="fa fa-check"></i> <b>1.3.3.</b> Class 決定細節
+                <i class="fa fa-check"></i> <b>1.3.3.</b> 留 options 給使用的 Class 
             </a>
             
             
@@ -258,7 +258,7 @@
     
         <a href="../mixin_and_concerns/extend-exists-classes.html" title="擴充已存在物件" class="chapter  " data-progress="1.3.2" style="left: 66.66666666666667%;"></a>
     
-        <a href="../mixin_and_concerns/setup-options-in-class.html" title="Class 決定細節" class="chapter  " data-progress="1.3.3" style="left: 77.77777777777777%;"></a>
+        <a href="../mixin_and_concerns/setup-options-in-class.html" title="留 options 給使用的 Class " class="chapter  " data-progress="1.3.3" style="left: 77.77777777777777%;"></a>
     
         <a href="../mixin_and_concerns/meta-programming.html" title="搭配 meta-programming" class="chapter  " data-progress="1.3.4" style="left: 88.88888888888889%;"></a>
     
@@ -269,7 +269,7 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_7627">
+                    <section class="normal" id="section-gitbook_642">
                     
                         <h3 id="include-extend-">include &amp; extend 規則如下：</h3>
 <ol>
@@ -277,6 +277,18 @@
 <li>class <code>extend</code> module 會把該 module 的 methods 混入成 <code>class method</code></li>
 </ol>
 <h3 id="-include">[範例] include</h3>
+<p>我的 <code>ThsrGroupbuy</code> 和 <code>ThsrTicket</code> 都擁有 <code>from_id</code> 和 <code>to_id</code> 的起訖站欄位、類型是 <code>Integer</code></p>
+<h4 id="-">需求：</h4>
+<p>我希望兩張 model 都可以使用 <code>from_site</code> 和 <code>to_site</code> 回傳站台的中文名字，如下：</p>
+<pre><code class="lang-ruby"><span class="hljs-variable">@thsr_group</span> = <span class="hljs-constant">ThsrGroupbuy</span>.find(<span class="hljs-number">1</span>)
+<span class="hljs-variable">@thsr_group</span>.from_site <span class="hljs-comment"># 左營</span>
+<span class="hljs-variable">@thsr_group</span>.to_site <span class="hljs-comment"># 台北</span>
+
+<span class="hljs-variable">@thsr_ticket</span> = <span class="hljs-constant">ThsrTicket</span>.find(<span class="hljs-number">1</span>)
+<span class="hljs-variable">@thsr_ticket</span>.from_site <span class="hljs-comment"># 左營</span>
+<span class="hljs-variable">@thsr_ticket</span>.to_site <span class="hljs-comment"># 台北</span>
+</code></pre>
+<p>我可以使用 <code>mixin</code> 把同樣邏輯的程式碼拆到 module 裡，在分別混入 <code>ThsrGroupbuy</code> 和 <code>ThsrTicket</code> 裡：</p>
 <pre><code class="lang-ruby"><span class="hljs-comment"># app/models/concerns/departs.rb</span>
 <span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">Departs</span></span>
   <span class="hljs-function"><span class="hljs-keyword">def</span> </span>from_site
@@ -290,25 +302,15 @@
 
 <span class="hljs-comment"># app/models/thsr_groupbuys.rb</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThsrGroupbuys</span> <span class="hljs-inheritance">&lt; <span class="hljs-parent">ActiveRecord::Base</span></span></span>
-  <span class="hljs-comment"># 假設這個 model 有 from_id &amp; to_id column</span>
-  <span class="hljs-keyword">include</span> <span class="hljs-constant">Depsrts</span>
+  <span class="hljs-keyword">include</span> <span class="hljs-constant">Departs</span>
 <span class="hljs-keyword">end</span>
 
 <span class="hljs-comment"># app/models/thsr_groupbuys.rb</span>
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ThsrTickets</span> <span class="hljs-inheritance">&lt; <span class="hljs-parent">ActiveRecord::Base</span></span></span>
-  <span class="hljs-comment"># 假設這個 model 有 from_id &amp; to_id column</span>
-  <span class="hljs-keyword">include</span> <span class="hljs-constant">Depsrts</span>
+  <span class="hljs-keyword">include</span> <span class="hljs-constant">Departs</span>
 <span class="hljs-keyword">end</span>
 </code></pre>
-<p>這樣一來把 <code>ThsrTickets</code> 和 <code>ThsrGroupbuys</code> 都擁有了 <code>from_site</code> <code>to_site</code> 的 instance method，而不用分別重寫在兩個 model 裡，所以你可以這樣操作。</p>
-<pre><code class="lang-ruby"><span class="hljs-variable">@group</span> = <span class="hljs-constant">ThsrGroupbuys</span>.find(<span class="hljs-number">1</span>)
-<span class="hljs-variable">@group</span>.from_site <span class="hljs-comment"># 左營</span>
-<span class="hljs-variable">@group</span>.to_site <span class="hljs-comment"># 台北</span>
-
-<span class="hljs-variable">@ticket</span> = <span class="hljs-constant">ThsrTicket</span>.find(<span class="hljs-number">1</span>)
-<span class="hljs-variable">@ticket</span>.from_site <span class="hljs-comment"># 左營</span>
-<span class="hljs-variable">@ticket</span>.to_site <span class="hljs-comment"># 台北</span>
-</code></pre>
+<p>這樣一來把 <code>ThsrTickets</code> 和 <code>ThsrGroupbuys</code> 都擁有了 <code>from_site</code> <code>to_site</code> 的 instance method，而不用分別重寫在兩個 model 裡了。</p>
 <h3 id="-extend">[範例] extend</h3>
 <pre><code class="lang-ruby"><span class="hljs-class"><span class="hljs-keyword">module</span> <span class="hljs-title">TranslateModelName</span></span>
   <span class="hljs-function"><span class="hljs-keyword">def</span> </span>model_name
@@ -323,7 +325,9 @@
 <p>這樣一來 <code>model_name</code> 就會變成 <code>ThsrGroupbuy</code> 的 class level method，所以你就可以這樣用：</p>
 <pre><code class="lang-ruby"><span class="hljs-constant">ThsrGroupbuy</span>.model_name
 </code></pre>
-<p>(以上這個例子 ActiveRecord 已經有類似的 method)</p>
+<blockquote>
+<p>(以上這個例子只是為了說明，ActiveRecord 已經有類似的 method)</p>
+</blockquote>
 <h3 id="-mix-class-instance-methods">[範例] 同時需要 mix class &amp; instance methods</h3>
 <p>拿 departs module 的例子，如果我希望可以使用 <code>ThsrGroupbuy.sites_list</code> <code>ThsrTicket.sites_list</code> 可以得到車站的陣列，則必須修改成以下：</p>
 <pre><code class="lang-ruby"><span class="hljs-comment"># app/models/concerns/departs.rb</span>
