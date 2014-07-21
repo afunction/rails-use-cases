@@ -32,7 +32,7 @@ end
 
 問題是他們分別繼承了不同的 `superclass`，而且不一定所有繼承 `FlyMachine` 或 `Car` 的其他 class 都需要或適用 `fill_gas!` 這個方法。即使我實作了，變成要貼兩次一樣的程式碼在不同的 class 裡。
 
-所以這時候我們可以建立一個 `module` 叫做 `GasHandle`
+所以這時候我們可以建立一個 `module` 叫做 `GasHandler`
 
 ```ruby
 module GasHandler
