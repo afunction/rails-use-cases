@@ -96,7 +96,7 @@ end
 
 有注意到在 class 內呼叫 `acts_need_to_valid_depart_info` 和在 model 內使用 `validates`  `callback` `has_many` 是不是很像呢?
 
-因為這些東西都是 `ActiveRecord::Base` 提供的 class method` 要寫在 class 的區塊範圍內才會正常執行，理所當然 `acts_need_to_valid_depart_info` 也要包在 `ClassMethods` 裡寫成 class method 摟。
+因為這些東西都是 `ActiveRecord::Base` 提供的 class method  要寫在 class 的區塊範圍內才會正常執行，理所當然 `acts_need_to_valid_depart_info` 也要包在 `ClassMethods` 裡寫成 class method 摟。
 
 
 ### B. 由 class 定義細節
