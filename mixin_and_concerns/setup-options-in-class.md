@@ -68,7 +68,7 @@ module Departs
 end
 ```
 
-注意到了嗎? 我們多寫了一個 class method 叫 `acts_to_valid_depart_info`，裡面定義了驗證、和寫入發車、抵達時間的 callback，但這些內容並不是寫在 `included` block 裡面，而是 `被動的` 等要使用的 class 來呼叫：
+注意到了嗎? 我們多寫了一個 class method 叫 `acts_need_to_valid_depart_info`，裡面定義了驗證、和寫入發車、抵達時間的 callback，但這些內容並不是寫在 `included` block 裡面，而是 `被動的` 等要使用的 class 來呼叫：
 
 
 使用方法如下：
@@ -94,9 +94,10 @@ class Subscribe < ActiveRecord::Base
 end
 ```
 
-> Q: 一定要將 `acts_need_to_valid_depart_info` 寫成 class method 呢?
->
-> A. 有注意到在 class 內呼叫 `acts_need_to_valid_depart_info` 和呼叫 `validate`  `callback` 都是寫在 class level 的區塊嗎? 因為 validation 和 callbacks 都屬於 class method 層級的東西，所以當然也要實作在 `ClassMethods` 裡面摟，
+有注意到在 class 內呼叫 `acts_need_to_valid_depart_info` 和在 model 內使用 `validates`  `callback` `has_many` 是不是很像呢?
+
+因為這些東西都是 `ActiveRecord::Base` 提供的 class method` 要寫在 class 的區塊範圍內才會正常執行，理所當然 `acts_need_to_valid_depart_info` 也要包在 `ClassMethods` 裡寫成 class method 摟。
+
 
 ### B. 由 class 定義細節
 
@@ -111,15 +112,14 @@ end
 # app/models/concerns/departs.rb
 module ClassMethods
   def acts_need_to_valid_depart_info(opts={})
-
     # Validations
     validates_presence_of :depart_no
 
     if opts[:limit_depart_date]
-        validates_date :depart_date, after:  lambda { Date.today - 1.day },
-                               before: lambda { Date.today +
-                               30.day }
-   end
+        validates_date :depart_date,
+            after:  lambda { Date.today - 1.day },
+            before: lambda { Date.today + 30.day }
+    end
 
     # callbacks
     before_validation :do_set_departure_arrival_time
@@ -127,6 +127,31 @@ module ClassMethods
 end
 ```
 
+而 model 必須改成：
+
+
+```ruby
+# app/models/thsr_ticket.rb
+class ThsrTicket < ActiveRecord::Base
+  include Departs
+
+  acts_need_to_valid_depart_info limit_depart_date: true
+end
+
+# app/models/thsr_groupbuy.rb
+class ThsrGroupbuy < ActiveRecord::Base
+  include Departs
+
+  acts_need_to_valid_depart_info limit_depart_date: false
+end
+```
+
+這不是 DRY 又 clean 呢?
+
+
+**Tips:**
+
+> 上面的 `validates_date` 是使用了 [[Gem] validates_timeliness](https://github.com/adzap/validates_timeliness)，並不是 rails 內建的 validator 喔。
 
 
 
