@@ -24,8 +24,8 @@
     @group.from_site # 左營
     @group.to_site # 左營
     ```
-2. 並且都會檢驗 `to_id` `from_id` 是否等於數字 1 - 8，並且不能一樣
-3. 都可以定義好一樣的 `scope`，如：
+2. 並且都會檢驗 `to_id` `from_id` 是否等於數字 1 - 8，並且起訖站不能一樣
+3. 定義好一樣的 `scope`，如：
     ```ruby
     ThsrTicket.from_to_list(1, 8) # 回傳左營 => 臺北的轉讓票
     Subscribe.from_to_list(8, 1) # 回傳臺北 => 左營的訂閱訊息
@@ -109,11 +109,12 @@ end
 然後在分別到三張 model 內 `include Departs` 就完成了 :)
 
 
-注意：
+**Tips:**
+
 > 寫在 `included` blcok 內的程式碼，必須等 module `被 include` 了以後才執行，才不會找不到 `validate` `validates_inclusion_of` `scope` 這些屬於 `ActiveRecord::Base` 的 class methods
 
 
-# Tips
+# 總結
 
 以上案例為了方便說明而簡化過並不是晚鳥票真實程式碼，實作起訖站欄位 `from_id` 和 `to_id` 更好的方法是使用 [[Gem] simple_enum](https://github.com/lwe/simple_enum) 預設就支援 `i18n`、`validate`，也考慮到使用 `form select` 會用到的 `collection`，例如：
 
