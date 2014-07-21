@@ -31,6 +31,7 @@
     Subscribe.from_to_list(8, 1) # 回傳臺北 => 左營的訂閱訊息
     ThsrGroupbuy.from_to_list(7, 2) # 回傳板橋 => 台南的團購班次
     ```
+
 4. 可以取得兩站的票價、折扣後票價
     ```ruby
     @thsr_ticket = ThsrTicket.find(params[:id])
