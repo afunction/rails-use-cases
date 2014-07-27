@@ -9,4 +9,9 @@
        * [留 options 給使用的 Class ](mixin_and_concerns/setup-options-in-class.md)
        * [搭配 meta-programming](mixin_and_concerns/meta-programming.md)
    * [Tips](mixin_and_concerns/tips.md)
+* [Refactor Patterns](refactor/README.md)
+   * [Form Objects](refactor/form_objects.md)
+       * [了解 Form helper](refactor/form_helper.md)
+       * [實作 Form Object](refactor/form_object.md)
+   * [Service Objects](refactor/service_objects)
 
