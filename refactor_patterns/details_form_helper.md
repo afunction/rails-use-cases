@@ -23,7 +23,7 @@
 
 rails 範例幾乎沒有對 form helper 做 detail 的說明，其實以上程式碼的 `@order` 不一定要丟入 model。
 
-而 `f.input :address` 只是去建立一個 input 把值把 value 填上 `@order.address` 而已。
+而 `f.input :address` 只是去建立一個 input html 並把 value 填上 `@order.address` 而已。
 
 既然是這樣，只要我有一個物件有 Getter 可以取值，那也就可以使用如下：
 
@@ -54,7 +54,7 @@ Form helper 的第二個任務就是顯示 error messages，如果你對一個 m
  => #<ActiveModel::Errors:0x0000010bcaeea8 @base=#<User id: nil, email: "", encrypted_password: "", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, confirmation_token: nil, confirmed_at: nil, confirmation_sent_at: nil, unconfirmed_email: nil, is_admin: false, is_manager: false, created_at: nil, updated_at: nil, nickname: "", location: "", avatar: "", tel: "", mobi: "", extra_data: nil, birthday: nil, shipping_city: "", shipping_area: "", shipping_zip: "", shipping_address: "", shipping_recipient: "", shipping_gender_cd: 0, shipping_contact_mobile: "", pay_notification: nil, lock_login: false, authentication_token: nil>, @messages={:email=>["不能是空白字元"], :password=>["不能是空白字元"]}>
 ```
 
-這時候 `@user.errors` 回傳的 `ActiveModel::Errors` 物件，裡面記載了你這個 record 的 instance，還包含 columns 對應的 error messages，如果你輸入 ``@user.errors.messages` 則會出現：
+這時候 `@user.errors` 回傳的 `ActiveModel::Errors` 物件，裡面記載了你這個 record 的 instance，還包含 columns 對應的 error messages，如果你輸入 `@user.errors.messages` 則會出現：
 
 ```ruby
 @user.errors.messages
