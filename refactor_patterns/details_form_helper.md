@@ -1,6 +1,6 @@
 # Form Helper 的角色
 
-由於你的 Form object 大部分時候是設計給 `form helper` 使用，所以開始實作 form object 前則必須了解 from helper 的職責。
+由於 Form object 大部分時候是設計給 `form helper` 使用，所以開始實作 form object 前則必須了解 from helper 的職責。
 
 
 ### 基本職責
@@ -54,7 +54,7 @@ Form helper 的第二個任務就是顯示 error messages，如果你對一個 m
  => #<ActiveModel::Errors:0x0000010bcaeea8 @base=#<User id: nil, email: "", encrypted_password: "", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, sign_in_count: 0, current_sign_in_at: nil, last_sign_in_at: nil, current_sign_in_ip: nil, last_sign_in_ip: nil, confirmation_token: nil, confirmed_at: nil, confirmation_sent_at: nil, unconfirmed_email: nil, is_admin: false, is_manager: false, created_at: nil, updated_at: nil, nickname: "", location: "", avatar: "", tel: "", mobi: "", extra_data: nil, birthday: nil, shipping_city: "", shipping_area: "", shipping_zip: "", shipping_address: "", shipping_recipient: "", shipping_gender_cd: 0, shipping_contact_mobile: "", pay_notification: nil, lock_login: false, authentication_token: nil>, @messages={:email=>["不能是空白字元"], :password=>["不能是空白字元"]}>
 ```
 
-這時候 `@user.errors` 回傳的 `ActiveModel::Errors` 物件，裡面記載了你這個 record 的 instance，還包含你的 column => error messages，如果你輸入 ``@user.errors.messages` 則會出現：
+這時候 `@user.errors` 回傳的 `ActiveModel::Errors` 物件，裡面記載了你這個 record 的 instance，還包含 columns 對應的 error messages，如果你輸入 ``@user.errors.messages` 則會出現：
 
 ```ruby
 @user.errors.messages
