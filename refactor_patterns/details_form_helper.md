@@ -108,12 +108,12 @@ simple_form 解決了 form_for 需要不斷寫重複的 html 的問題，使用 
 
 **bootstrap_form**
 
-[[Gem] bootstrap_form](https://github.com/bootstrap-ruby/rails-bootstrap-forms) 本身則是一套專屬 bootstrap 表單結構的 form helper，所以若是專案已經使用 bootstrap 我比較星傾向使用這套。
+[[Gem] bootstrap_form](https://github.com/bootstrap-ruby/rails-bootstrap-forms) 本身則是一套專屬 bootstrap 表單結構的 form helper，所以若是專案已經使用 bootstrap 我比較傾向使用這套。
 
 
 ### 4. Form Action
 
-這個地方是我認為比較不好理解，但理解後會覺得 rails 的 RESTful 設計非常了不起。
+這是我認為比較不好理解，但理解後會覺得 rails 的 RESTful 設計非常了不起的地方。
 
 ##### A. method:
 
@@ -143,7 +143,7 @@ form_for(@user)
 
 ##### B. action path:
 
-但他是怎麼知道要丟到哪個網址呢? 其實 form helper 非常聰明，他會拿你丟入的變數 `@user` 找到該變數的 `model_name` 是 `User` 進而找到你的 `user helpers`
+但他是怎麼知道要丟到哪個網址呢? 其實 form helper 非常聰明，他會拿你丟入的變數 `@user` 找到該變數的 `model_name` 是 `User` 進而找到你的 user resource 的 `url helpers`
 
 1. 如果是 `new_record?` 則丟到 users_path 中
 2. 如果是 `persisted?` 則丟到 user_path(@user) 中

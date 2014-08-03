@@ -1,5 +1,6 @@
 # Summary
 
+* [Introduction](README.md)
 * [Mixin and Concerns](mixin_and_concerns/README.md)
    * [Include & Extend](mixin_and_concerns/include_and_extend.md)
    * [Concerns](mixin_and_concerns/concerns.md)
@@ -12,6 +13,7 @@
 * [Refactor Patterns](refactor_patterns/README.md)
    * [Form Objects](refactor_patterns/form_objects.md)
        * [深入 Form helper](refactor_patterns/details_form_helper.md)
-       * [實作 Form Object](refactor_patterns/implement_form_objects.md)
+       * [Basic Form Object](refactor_patterns/implement_form_objects.md)
+       * [[Gem] Reform ](refactor_patterns/[gem]_reform.md)
    * [Service Objects](refactor_patterns/service_objects.md)
 
